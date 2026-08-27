@@ -19,10 +19,14 @@ if (manifest.background?.service_worker) {
 manifest.browser_specific_settings = {
   ...(manifest.browser_specific_settings ?? {}),
   gecko: {
+    ...(manifest.browser_specific_settings?.gecko ?? {}),
     id: 'instafn@cybr47.github',
-    strict_min_version: '121.0'
+    strict_min_version: '121.0',
+    data_collection_permissions: {
+      required: ['none']
+    }
   }
 };
 
 fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-console.log('Patched dist/manifest.json for Firefox.');
+console.log('Patched dist/manifest.json for Firefox/AMO.');
